@@ -13,9 +13,14 @@ def sending(message):
         Name : {message['chat']['first_name']}
         """
     )
-    f = open('user_list.txt','a')
-    f.write("%s,%s\n"%(message['chat']['id'],message['chat']['first_name']))
+    f = open('user_list.txt','r')
+    file = f.read()
     f.close()
+    if not str(message['chat']['id']) in file:
+        f = open('user_list.txt','a')
+        f.write("%s,%s\n"%(message['chat']['id'],message['chat']['first_name']))
+        print('write')
+        f.close()
 
 if __name__ == '__main__':
         bot.config['api_key'] = bot_token
